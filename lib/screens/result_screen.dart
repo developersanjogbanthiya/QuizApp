@@ -103,58 +103,21 @@ class ResultScreen extends StatelessWidget {
                           style: TextStyle(color: const Color.fromARGB(255, 25, 77, 26), fontSize: 16),
                         ),
                         Gap(12),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            fixedSize: Size(1000, 16),
-                            backgroundColor: element['options'][0]['is_correct'] == true
-                                ? const Color.fromARGB(222, 76, 175, 79)
-                                : Color.fromARGB(192, 244, 67, 70),
-                            foregroundColor: Colors.white,
+                        for (int i = 0; i < 4; i++)
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              fixedSize: Size(1000, 16),
+                              backgroundColor: element['options'][i]['is_correct'] == true
+                                  ? const Color.fromARGB(222, 76, 175, 79)
+                                  : Color.fromARGB(192, 244, 67, 70),
+                              foregroundColor: Colors.white,
+                            ),
+                            onPressed: () {},
+                            child: Text(
+                              element['options'][i]['description'],
+                            ),
                           ),
-                          onPressed: () {},
-                          child: Text(
-                            element['options'][0]['description'],
-                          ),
-                        ),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            fixedSize: Size(1000, 16),
-                            backgroundColor: element['options'][1]['is_correct'] == true
-                                ? const Color.fromARGB(222, 76, 175, 79)
-                                : Color.fromARGB(192, 244, 67, 70),
-                            foregroundColor: Colors.white,
-                          ),
-                          onPressed: () {},
-                          child: Text(
-                            element['options'][1]['description'],
-                          ),
-                        ),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            fixedSize: Size(1000, 16),
-                            backgroundColor: element['options'][2]['is_correct'] == true
-                                ? const Color.fromARGB(222, 76, 175, 79)
-                                : Color.fromARGB(192, 244, 67, 70),
-                            foregroundColor: Colors.white,
-                          ),
-                          onPressed: () {},
-                          child: Text(
-                            element['options'][2]['description'],
-                          ),
-                        ),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            fixedSize: Size(1000, 16),
-                            backgroundColor: element['options'][3]['is_correct'] == true
-                                ? const Color.fromARGB(222, 76, 175, 79)
-                                : Color.fromARGB(192, 244, 67, 70),
-                            foregroundColor: Colors.white,
-                          ),
-                          onPressed: () {},
-                          child: Text(
-                            element['options'][3]['description'],
-                          ),
-                        ),
+
                         Gap(12),
                       ],
                     ),
