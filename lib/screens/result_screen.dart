@@ -47,6 +47,7 @@ class ResultScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             if (questionsProvider.answer['${element['id']}']!)
+                              // Correct answer marked by user
                               Container(
                                 margin: EdgeInsets.only(bottom: 12),
                                 padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
@@ -60,6 +61,7 @@ class ResultScreen extends StatelessWidget {
                                 ),
                               ),
                             if (!questionsProvider.answer['${element['id']}']!)
+                              // Wrong answer marked by user
                               Container(
                                 margin: EdgeInsets.only(bottom: 12),
                                 padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
@@ -96,28 +98,29 @@ class ResultScreen extends StatelessWidget {
                             )
                           ],
                         ),
-                        // detailed_solution
-
+                        // Question
                         Text(
                           element['description'],
                           style: TextStyle(color: const Color.fromARGB(255, 25, 77, 26), fontSize: 16),
                         ),
                         Gap(12),
+                        // Options
                         for (int i = 0; i < 4; i++)
                           ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               fixedSize: Size(1000, 16),
+                              // Right option - green colour
                               backgroundColor: element['options'][i]['is_correct'] == true
                                   ? const Color.fromARGB(222, 76, 175, 79)
                                   : Color.fromARGB(192, 244, 67, 70),
                               foregroundColor: Colors.white,
                             ),
                             onPressed: () {},
+                            // Option Text
                             child: Text(
                               element['options'][i]['description'],
                             ),
                           ),
-
                         Gap(12),
                       ],
                     ),
