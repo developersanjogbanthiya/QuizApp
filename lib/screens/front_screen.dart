@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
-import 'package:quiz_app_assignment/provider/questions_provider.dart';
+import 'package:quiz_app_assignment/providers/questions_provider.dart';
 import 'package:quiz_app_assignment/screens/quiz_screen.dart';
 
 class FrontScreen extends StatelessWidget {

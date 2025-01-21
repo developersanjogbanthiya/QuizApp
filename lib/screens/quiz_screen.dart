@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:quiz_app_assignment/provider/questions_provider.dart';
+
+import 'package:quiz_app_assignment/providers/questions_provider.dart';
 import 'package:quiz_app_assignment/screens/questions_screen.dart';
 
 class QuizScreen extends StatelessWidget {
@@ -31,7 +32,7 @@ class QuizScreen extends StatelessWidget {
             } else if (snapshot.hasError) {
               return Center(child: const Text('Error Occurred'));
             }
-            return QuestionsScreen(questions: snapshot.data!['questions']);
+            return QuestionsScreen(questionData: snapshot.data!);
           }),
     );
   }

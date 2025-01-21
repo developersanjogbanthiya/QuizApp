@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:quiz_app_assignment/provider/questions_provider.dart';
+import 'package:quiz_app_assignment/models/data_model.dart';
+import 'package:quiz_app_assignment/providers/questions_provider.dart';
 import 'package:quiz_app_assignment/screens/result_screen.dart';
 import 'package:gap/gap.dart';
 import 'package:quiz_app_assignment/widgets/option_button.dart';
 
 class QuestionsScreen extends StatelessWidget {
-  const QuestionsScreen({super.key, required this.questions});
+  const QuestionsScreen({super.key, required this.questionData});
 
-  final List questions;
+  final DataModel questionData;
 
   @override
   Widget build(BuildContext context) {
@@ -21,18 +22,18 @@ class QuestionsScreen extends StatelessWidget {
       questionsProvider.numberOfQuestionsAnswered++;
 
       // Saving whether the answer was correct or not for the given questionId
-      questionsProvider.answer.addAll({'${questions[currentQuestionIndex]['id']}': isAnswerTrue});
+      questionsProvider.answer.addAll({'${questionData.question[currentQuestionIndex].id}': isAnswerTrue});
 
       questionsProvider.currentQuestionIndex++;
     }
 
-    if (currentQuestionIndex < questions.length) {
+    if (currentQuestionIndex < questionData.question.length) {
       // Displaying Questions Screen
       return Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           LinearProgressIndicator(
-            value: currentQuestionIndex / questions.length,
+            value: currentQuestionIndex / questionData.question.length,
           ),
           Container(
             margin: EdgeInsets.only(left: 12, right: 12, bottom: 40, top: 24),
@@ -95,7 +96,7 @@ class QuestionsScreen extends StatelessWidget {
                 Gap(16),
                 // Question
                 Text(
-                  '${questions[currentQuestionIndex]['description']}',
+                  questionData.question[currentQuestionIndex].description,
                   style: TextStyle(fontSize: 20, color: const Color.fromARGB(255, 25, 77, 26)),
                 ),
                 Gap(80),
@@ -104,21 +105,21 @@ class QuestionsScreen extends StatelessWidget {
                   Column(
                     children: [
                       OptionButton(
-                        isCorrect: '${questions[currentQuestionIndex]['options'][i]['is_correct']}' == 'true',
+                        isCorrect: questionData.question[currentQuestionIndex].options[i].isCorrect,
                         onButtonPressed: () {
-                          if ('${questions[currentQuestionIndex]['options'][i]['is_correct']}' == 'true') {
+                          if (questionData.question[currentQuestionIndex].options[i].isCorrect) {
                             isAnswerTrue = true;
                             // Updating marks
                             questionsProvider.marks += questionsProvider.correctAnswerMark;
                           }
-                          if ('${questions[currentQuestionIndex]['options'][i]['is_correct']}' == 'false') {
+                          if (!questionData.question[currentQuestionIndex].options[i].isCorrect) {
                             isAnswerTrue = false;
                             questionsProvider.marks -= questionsProvider.wrongAnswerMark;
                           }
 
                           onAnswerTap(isAnswerTrue);
                         },
-                        label: '${questions[currentQuestionIndex]['options'][i]['description']}',
+                        label: questionData.question[currentQuestionIndex].options[i].description,
                       ),
                       Gap(8),
                     ],
@@ -132,7 +133,7 @@ class QuestionsScreen extends StatelessWidget {
 
     // Displaying Results Screen
     return ResultScreen(
-      questions: questions,
+      questionData: questionData,
     );
   }
 }

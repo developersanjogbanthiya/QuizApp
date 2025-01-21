@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:quiz_app_assignment/provider/questions_provider.dart';
+import 'package:quiz_app_assignment/providers/questions_provider.dart';
 import 'package:quiz_app_assignment/screens/front_screen.dart';
 
 void main() {

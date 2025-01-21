@@ -2,12 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
-import 'package:quiz_app_assignment/provider/questions_provider.dart';
+import 'package:quiz_app_assignment/models/data_model.dart';
+import 'package:quiz_app_assignment/providers/questions_provider.dart';
 import 'package:quiz_app_assignment/screens/detailed_solution.dart';
 
 class ResultScreen extends StatelessWidget {
-  const ResultScreen({super.key, required this.questions});
-  final List questions;
+  const ResultScreen({super.key, required this.questionData});
+  final DataModel questionData;
   @override
   Widget build(BuildContext context) {
     final questionsProvider = Provider.of<QuestionsProvider>(context, listen: true);
@@ -28,7 +29,7 @@ class ResultScreen extends StatelessWidget {
         Flexible(
           child: ListView(
             children: [
-              ...questions.map(
+              ...questionData.question.map(
                 (element) {
                   return Container(
                     margin: EdgeInsets.all(
@@ -46,7 +47,7 @@ class ResultScreen extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            if (questionsProvider.answer['${element['id']}']!)
+                            if (questionsProvider.answer['${element.id}']!)
                               // Correct answer marked by user
                               Container(
                                 margin: EdgeInsets.only(bottom: 12),
@@ -60,7 +61,7 @@ class ResultScreen extends StatelessWidget {
                                   style: TextStyle(color: Colors.white),
                                 ),
                               ),
-                            if (!questionsProvider.answer['${element['id']}']!)
+                            if (!questionsProvider.answer['${element.id}']!)
                               // Wrong answer marked by user
                               Container(
                                 margin: EdgeInsets.only(bottom: 12),
@@ -100,7 +101,7 @@ class ResultScreen extends StatelessWidget {
                         ),
                         // Question
                         Text(
-                          element['description'],
+                          element.description,
                           style: TextStyle(color: const Color.fromARGB(255, 25, 77, 26), fontSize: 16),
                         ),
                         Gap(12),
@@ -110,7 +111,7 @@ class ResultScreen extends StatelessWidget {
                             style: ElevatedButton.styleFrom(
                               fixedSize: Size(1000, 16),
                               // Right option - green colour
-                              backgroundColor: element['options'][i]['is_correct'] == true
+                              backgroundColor: element.options[i].isCorrect
                                   ? const Color.fromARGB(222, 76, 175, 79)
                                   : Color.fromARGB(192, 244, 67, 70),
                               foregroundColor: Colors.white,
@@ -118,7 +119,7 @@ class ResultScreen extends StatelessWidget {
                             onPressed: () {},
                             // Option Text
                             child: Text(
-                              element['options'][i]['description'],
+                              element.options[i].description,
                             ),
                           ),
                         Gap(12),
